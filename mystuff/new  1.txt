@@ -1,0 +1,217 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <script language="javascript" type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+        <script language="javascript" type="text/javascript" src="js/jquery.ui.core.js"></script>
+        <script language="javascript" type="text/javascript" src="js/jquery.ui.datepicker.js"></script>
+        <link rel="StyleSheet" href="css/style1.css">
+        <link rel="StyleSheet" href="css/demos.css">
+        <link rel="StyleSheet" href="css/jquery-ui-1.8.4.custom.css">
+        <script language="javascript" type="text/javascript">
+            $(function()
+        {
+            $('#dob').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: 'c-100:c'
+            });
+        });
+        function checkdata()
+        { alert("hi");
+            frm1.submit();
+        }
+
+       function callPerform(){
+           
+         //  document.forms['perform-form'].action='http://localhost:8084/StudentPerformance/view_performance.jsp';
+           document.forms['perform-form'].action='https://erp.iitkgp.ernet.in/StudentPerformance/view_performance.jsp';
+           document.forms['perform-form'].elements['rollno'].value='13GG20012';
+           document.forms['perform-form'].submit();
+           //window.open('https://erp.iitkgp.ernet.in/IMail/emailInbox.jsp?erpEmailOpenedItem=compose&send_to='+receipientList+'&emailsrc=externalexpart&emailtype=email', 'email', 'width=1200px,height=800px,scrollbars=1');
+           //window.open('http://10.57.4.65:8080/StudentPerformanece/view_performance.jsp?rollno=13GG20012', 'perform', 'width=1200px,height=400px,scrollbars=1');
+             //  alert("hi");
+        }
+       function callFile(pageno,fileFullPath){
+
+           //document.forms['letter-form'].action='http://10.57.4.65:8080/StudentPerformanece/commonFileDownloader.jsp';
+           document.forms['perform-form'].action='https://erp.iitkgp.ernet.in/StudentPerformance/commonFileDownloader.jsp';
+           document.forms['perform-form'].elements['fileFullPath'].value=fileFullPath;
+           document.forms['perform-form'].elements['pageno'].value=pageno;
+          // alert(pageno+fileFullPath);
+           document.forms['perform-form'].submit();
+           //window.open('https://erp.iitkgp.ernet.in/IMail/emailInbox.jsp?erpEmailOpenedItem=compose&send_to='+receipientList+'&emailsrc=externalexpart&emailtype=email', 'email', 'width=1200px,height=800px,scrollbars=1');
+           //window.open('http://10.57.4.65:8080/StudentPerformanece/view_performance.jsp?rollno=13GG20012', 'perform', 'width=1200px,height=400px,scrollbars=1');
+             //  alert("hi");
+        }
+       function callDeanLetter(){
+
+          // document.forms['perform-form'].action='http://10.57.4.65:8080/StudentPerformanece/dean_letter.jsp';
+           document.forms['perform-form'].action='https://erp.iitkgp.ernet.in/StudentPerformance/dean_letter.jsp';
+           document.forms['perform-form'].elements['fileFullPath'].value='';
+           document.forms['perform-form'].elements['rollno'].value='13GG20012';
+           document.forms['perform-form'].elements['pageno'].value='';
+           document.forms['perform-form'].submit();
+           //window.open('https://erp.iitkgp.ernet.in/IMail/emailInbox.jsp?erpEmailOpenedItem=compose&send_to='+receipientList+'&emailsrc=externalexpart&emailtype=email', 'email', 'width=1200px,height=800px,scrollbars=1');
+           //window.open('http://10.57.4.65:8080/StudentPerformanece/view_performance.jsp?rollno=13GG20012', 'perform', 'width=1200px,height=400px,scrollbars=1');
+             //  alert("hi");
+        }
+
+         function callRegdtl(rollno,str_reg_session,str_reg_semno){
+                var msg_div = document.getElementById("reg_show");
+                 // alert(rollno+str_reg_session+str_reg_semno);
+                //var app=serial_no;
+                var action="submit";
+                // alert(loc);
+                var xmlhttp = null;
+                if (XMLHttpRequest) xmlhttp=new XMLHttpRequest();
+                else xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                if(xmlhttp){
+                    xmlhttp.open("GET","reg_detail.jsp?action="+action+"&rollno="+rollno+"&str_reg_semno="+str_reg_semno+"&str_reg_session="+str_reg_session,true);
+                    xmlhttp.onreadystatechange = function(){
+                        if(xmlhttp.readyState == 4){
+                            if(xmlhttp.status == 200){
+                                var response = xmlhttp.responseText;
+                               //   alert(response);
+                                msg_div.style.display = 'block';
+                                msg_div.innerHTML = response;
+                                var p = getElementPosition(obj);
+                                msg_div.style.left = p.left + 'px';
+                                msg_div.style.top = p.top + 'px';
+                            }
+                        }
+                    }
+                    xmlhttp.send(null);
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <form id="frm1" name="frm1" action="performanceview_guardian.jsp" method="post">
+            <fieldset>
+                <legend><b>Search Student</b></legend>
+                <br><br>
+        <table>
+            <tr>
+                <td><b>Roll No.</b></td><td><input type="text" id="rollno" name="rollno" value="13GG20012"></td>
+            </tr>
+           
+            <tr>
+                <td><b>Date of Birth</b></td><td><input type="text" id="dob" name="dob" value="10-01-1995" readonly></td>
+            </tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr>
+                <td> <input type="hidden" value="submit" name="action" />
+                    <input type="submit"  value="Submit" name="submit" id="submit" class="button" >
+                </td>
+            </tr>
+            </table>
+            <br><br>
+                </fieldset>
+             <br><br> <br><br>
+             
+<table width="100%"><tr><td >
+            <table width="100%"><tr><td colspan="5">
+                <fieldset>
+                <legend><b>Student Detail</b></legend>
+                <table width="100%">
+                    <tr>
+                    <th>Roll No.</th>
+                    <th>Name</th>
+                    <th>Course name</th>
+                    <th>Performance Summary</th>
+                   
+                    </tr>
+<tr bgcolor="lightcyan">
+     
+           
+<td align="center">13GG20012<?xml version="1.0" encoding="utf-8" ?><student><valid_int><![CDATA[1]]></valid_int><message><![CDATA[]]></message><deptname><![CDATA[GEOLOGY & GEOPHYSICS]]></deptname><rollno><![CDATA[13GG20012]]></rollno><name><![CDATA[MD DILNAWAZ RAGIB]]></name><coursename><![CDATA[APPLIED GEOLOGY (M.Sc. 5Y)                                            ]]></coursename><deptcode><![CDATA[]]></deptcode><minor_coursename><![CDATA[]]></minor_coursename><semno><![CDATA[4]]></semno><sem_crd_taken><![CDATA[27]]></sem_crd_taken><sem_crd_cleared><![CDATA[27]]></sem_crd_cleared><sgpa><![CDATA[6.11]]></sgpa><tot_crd_taken><![CDATA[95]]></tot_crd_taken><tot_crd_cleared><![CDATA[95]]></tot_crd_cleared><cgpa><![CDATA[6.17]]></cgpa><additional_crd_taken><![CDATA[0]]></additional_crd_taken><additional_crd_cleared><![CDATA[0]]></additional_crd_cleared><additional_sgpa><![CDATA[0.00]]></additional_sgpa><additional_cgpa><![CDATA[0.00]]></additional_cgpa><tot_additional_crd_taken><![CDATA[0]]></tot_additional_crd_taken><tot_additional_crd_cleared><![CDATA[0]]></tot_additional_crd_cleared><semno1><![CDATA[4]]></semno1><subno><![CDATA[BS20001]]></subno><subname><![CDATA[SCIENCE OF LIVING SYSTEM]]></subname><ltp><![CDATA[2-0-0     ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[P]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[4]]></semno1><subno><![CDATA[EC21101]]></subno><subname><![CDATA[BASIC ELECTRONICS]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[B]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[4]]></semno1><subno><![CDATA[EC29001]]></subno><subname><![CDATA[BASIC ELECTRONICS LAB.]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[B]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[4]]></semno1><subno><![CDATA[EV20001]]></subno><subname><![CDATA[ENVIRONMENTAL SCIENCE]]></subname><ltp><![CDATA[2-0-0     ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[P]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[4]]></semno1><subno><![CDATA[GG20002]]></subno><subname><![CDATA[THERMODYNAMICS OF GEOL. SYSTEMS]]></subname><ltp><![CDATA[3-0-0 ]]></ltp><crd><![CDATA[3]]></crd><grade><![CDATA[P]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[4]]></semno1><subno><![CDATA[GG20107]]></subno><subname><![CDATA[STRUCTURAL GEOLOGY]]></subname><ltp><![CDATA[3-0-0 ]]></ltp><crd><![CDATA[3]]></crd><grade><![CDATA[P]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[4]]></semno1><subno><![CDATA[GG28002]]></subno><subname><![CDATA[FIELD WORK (3 WEEKS)]]></subname><ltp><![CDATA[0-0-0 ]]></ltp><crd><![CDATA[3]]></crd><grade><![CDATA[C]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[4]]></semno1><subno><![CDATA[GG29002]]></subno><subname><![CDATA[DETERMINATIVE MINERALOGY LABORATORY]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[4]]></semno1><subno><![CDATA[GG29007]]></subno><subname><![CDATA[STRUCTURAL GEOLOGY LAB]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[C]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[4]]></semno1><subno><![CDATA[HS20001]]></subno><subname><![CDATA[ECONOMICS]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[P]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno><![CDATA[3]]></semno><sem_crd_taken><![CDATA[23]]></sem_crd_taken><sem_crd_cleared><![CDATA[23]]></sem_crd_cleared><sgpa><![CDATA[6.09]]></sgpa><tot_crd_taken><![CDATA[68]]></tot_crd_taken><tot_crd_cleared><![CDATA[68]]></tot_crd_cleared><cgpa><![CDATA[6.19]]></cgpa><additional_crd_taken><![CDATA[0]]></additional_crd_taken><additional_crd_cleared><![CDATA[0]]></additional_crd_cleared><additional_sgpa><![CDATA[0.00]]></additional_sgpa><additional_cgpa><![CDATA[0.00]]></additional_cgpa><tot_additional_crd_taken><![CDATA[0]]></tot_additional_crd_taken><tot_additional_crd_cleared><![CDATA[0]]></tot_additional_crd_cleared><semno1><![CDATA[3]]></semno1><subno><![CDATA[EA10003]]></subno><subname><![CDATA[EXTRA ACADEMIC ACTIVITY-III]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[0]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[3]]></semno1><subno><![CDATA[EX20001]]></subno><subname><![CDATA[PHYSICS OF SOLID EARTH]]></subname><ltp><![CDATA[3-0-0     ]]></ltp><crd><![CDATA[3]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[3]]></semno1><subno><![CDATA[GG20005]]></subno><subname><![CDATA[INTRODUCTION TO EARTH SCIENCE]]></subname><ltp><![CDATA[3-1-0     ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[P]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[3]]></semno1><subno><![CDATA[GG21103]]></subno><subname><![CDATA[PALEONTOLOGY]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[3]]></semno1><subno><![CDATA[GG21105]]></subno><subname><![CDATA[MINERALOGY]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[3]]></semno1><subno><![CDATA[GG29003]]></subno><subname><![CDATA[PALEONTOLOGY LAB.]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[3]]></semno1><subno><![CDATA[GG29005]]></subno><subname><![CDATA[INTRODUCTION TO EARTH SCIENCE LAB.]]></subname><ltp><![CDATA[0-0-3     ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[C]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[3]]></semno1><subno><![CDATA[HS20002]]></subno><subname><![CDATA[GENERAL PSYCHOLOGY]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[C]]></grade><sub_type><![CDATA[HSS]]></sub_type><semno><![CDATA[2]]></semno><sem_crd_taken><![CDATA[22]]></sem_crd_taken><sem_crd_cleared><![CDATA[22]]></sem_crd_cleared><sgpa><![CDATA[6.36]]></sgpa><tot_crd_taken><![CDATA[45]]></tot_crd_taken><tot_crd_cleared><![CDATA[45]]></tot_crd_cleared><cgpa><![CDATA[6.24]]></cgpa><additional_crd_taken><![CDATA[0]]></additional_crd_taken><additional_crd_cleared><![CDATA[0]]></additional_crd_cleared><additional_sgpa><![CDATA[0.00]]></additional_sgpa><additional_cgpa><![CDATA[0.00]]></additional_cgpa><tot_additional_crd_taken><![CDATA[0]]></tot_additional_crd_taken><tot_additional_crd_cleared><![CDATA[0]]></tot_additional_crd_cleared><semno1><![CDATA[2]]></semno1><subno><![CDATA[CY11001]]></subno><subname><![CDATA[CHEMISTRY]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[2]]></semno1><subno><![CDATA[CY19001]]></subno><subname><![CDATA[CHEMISTRY LAB.]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[B]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[2]]></semno1><subno><![CDATA[EA10002]]></subno><subname><![CDATA[EXTRA ACADEMIC ACTIVITY-II]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[0]]></crd><grade><![CDATA[C]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[2]]></semno1><subno><![CDATA[EE11001]]></subno><subname><![CDATA[ELECTRICAL TECHNOLOGY]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[P]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[2]]></semno1><subno><![CDATA[EE19001]]></subno><subname><![CDATA[ELECTRICAL TECHNOLOGY LAB.]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[C]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[2]]></semno1><subno><![CDATA[HS13001]]></subno><subname><![CDATA[ENGLISH FOR COMMUNICATION]]></subname><ltp><![CDATA[3-0-2 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[2]]></semno1><subno><![CDATA[MA10002]]></subno><subname><![CDATA[MATHEMATICS-II]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[2]]></semno1><subno><![CDATA[ME19001]]></subno><subname><![CDATA[INTRODUCTION TO MANUFACTURING PROCESSES]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[A]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno><![CDATA[1]]></semno><sem_crd_taken><![CDATA[23]]></sem_crd_taken><sem_crd_cleared><![CDATA[23]]></sem_crd_cleared><sgpa><![CDATA[6.13]]></sgpa><tot_crd_taken><![CDATA[23]]></tot_crd_taken><tot_crd_cleared><![CDATA[23]]></tot_crd_cleared><cgpa><![CDATA[6.13]]></cgpa><additional_crd_taken><![CDATA[0]]></additional_crd_taken><additional_crd_cleared><![CDATA[0]]></additional_crd_cleared><additional_sgpa><![CDATA[0.00]]></additional_sgpa><additional_cgpa><![CDATA[0.00]]></additional_cgpa><tot_additional_crd_taken><![CDATA[0]]></tot_additional_crd_taken><tot_additional_crd_cleared><![CDATA[0]]></tot_additional_crd_cleared><semno1><![CDATA[1]]></semno1><subno><![CDATA[CE13001]]></subno><subname><![CDATA[ENGINEERING DRAWING AND COMPUTER GRAPHICS]]></subname><ltp><![CDATA[1-0-3 ]]></ltp><crd><![CDATA[3]]></crd><grade><![CDATA[P]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[1]]></semno1><subno><![CDATA[CS11001]]></subno><subname><![CDATA[PROGRAMMING AND DATA STRUCTURE]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[1]]></semno1><subno><![CDATA[CS19001]]></subno><subname><![CDATA[PROGRAMMING AND DATA STRUCTURE LAB.]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[B]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[1]]></semno1><subno><![CDATA[EA10001]]></subno><subname><![CDATA[EXTRA ACADEMIC ACTIVITY-I]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[0]]></crd><grade><![CDATA[P]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[1]]></semno1><subno><![CDATA[MA10001]]></subno><subname><![CDATA[MATHEMATICS-I]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[1]]></semno1><subno><![CDATA[ME10001]]></subno><subname><![CDATA[MECHANICS]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[1]]></semno1><subno><![CDATA[PH11001]]></subno><subname><![CDATA[PHYSICS]]></subname><ltp><![CDATA[3-1-0 ]]></ltp><crd><![CDATA[4]]></crd><grade><![CDATA[D]]></grade><sub_type><![CDATA[Depth]]></sub_type><semno1><![CDATA[1]]></semno1><subno><![CDATA[PH19001]]></subno><subname><![CDATA[PHYSICS LAB.]]></subname><ltp><![CDATA[0-0-3 ]]></ltp><crd><![CDATA[2]]></crd><grade><![CDATA[C]]></grade><sub_type><![CDATA[Depth]]></sub_type><reg_semno><![CDATA[AUTUMN]]></reg_semno><reg_ses><![CDATA[2013-2014]]></reg_ses><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[CE13001]]></reg_subno><reg_subname><![CDATA[ENGINEERING DRAWING AND COMPUTER GRAPHICS]]></reg_subname><reg_ltp><![CDATA[1-0-3 ]]></reg_ltp><reg_crd><![CDATA[3]]></reg_crd><reg_grade><![CDATA[P]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[CS11001]]></reg_subno><reg_subname><![CDATA[PROGRAMMING AND DATA STRUCTURE]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[CS19001]]></reg_subno><reg_subname><![CDATA[PROGRAMMING AND DATA STRUCTURE LAB.]]></reg_subname><reg_ltp><![CDATA[0-0-3 ]]></reg_ltp><reg_crd><![CDATA[2]]></reg_crd><reg_grade><![CDATA[B]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[EA10001]]></reg_subno><reg_subname><![CDATA[EXTRA ACADEMIC ACTIVITY-I]]></reg_subname><reg_ltp><![CDATA[0-0-3 ]]></reg_ltp><reg_crd><![CDATA[0]]></reg_crd><reg_grade><![CDATA[P]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[MA10001]]></reg_subno><reg_subname><![CDATA[MATHEMATICS-I]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[ME10001]]></reg_subno><reg_subname><![CDATA[MECHANICS]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[PH11001]]></reg_subno><reg_subname><![CDATA[PHYSICS]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[PH19001]]></reg_subno><reg_subname><![CDATA[PHYSICS LAB.]]></reg_subname><reg_ltp><![CDATA[0-0-3 ]]></reg_ltp><reg_crd><![CDATA[2]]></reg_crd><reg_grade><![CDATA[C]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno><![CDATA[SPRING]]></reg_semno><reg_ses><![CDATA[2013-2014]]></reg_ses><reg_semno1><![CDATA[SPRING]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[CY11001]]></reg_subno><reg_subname><![CDATA[CHEMISTRY]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[SPRING]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[CY19001]]></reg_subno><reg_subname><![CDATA[CHEMISTRY LAB.]]></reg_subname><reg_ltp><![CDATA[0-0-3 ]]></reg_ltp><reg_crd><![CDATA[2]]></reg_crd><reg_grade><![CDATA[B]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[SPRING]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[EA10002]]></reg_subno><reg_subname><![CDATA[EXTRA ACADEMIC ACTIVITY-II]]></reg_subname><reg_ltp><![CDATA[0-0-3 ]]></reg_ltp><reg_crd><![CDATA[0]]></reg_crd><reg_grade><![CDATA[C]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[SPRING]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[EE11001]]></reg_subno><reg_subname><![CDATA[ELECTRICAL TECHNOLOGY]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[P]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[SPRING]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[EE19001]]></reg_subno><reg_subname><![CDATA[ELECTRICAL TECHNOLOGY LAB.]]></reg_subname><reg_ltp><![CDATA[0-0-3 ]]></reg_ltp><reg_crd><![CDATA[2]]></reg_crd><reg_grade><![CDATA[C]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[SPRING]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[HS13001]]></reg_subno><reg_subname><![CDATA[ENGLISH FOR COMMUNICATION]]></reg_subname><reg_ltp><![CDATA[3-0-2 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[SPRING]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[MA10002]]></reg_subno><reg_subname><![CDATA[MATHEMATICS-II]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[SPRING]]></reg_semno1><reg_ses1><![CDATA[2013-2014]]></reg_ses1><reg_subno><![CDATA[ME19001]]></reg_subno><reg_subname><![CDATA[INTRODUCTION TO MANUFACTURING PROCESSES]]></reg_subname><reg_ltp><![CDATA[0-0-3 ]]></reg_ltp><reg_crd><![CDATA[2]]></reg_crd><reg_grade><![CDATA[A]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno><![CDATA[AUTUMN]]></reg_semno><reg_ses><![CDATA[2014-2015]]></reg_ses><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2014-2015]]></reg_ses1><reg_subno><![CDATA[EA10003]]></reg_subno><reg_subname><![CDATA[EXTRA ACADEMIC ACTIVITY-III]]></reg_subname><reg_ltp><![CDATA[0-0-3 ]]></reg_ltp><reg_crd><![CDATA[0]]></reg_crd><reg_grade><![CDATA[F]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2014-2015]]></reg_ses1><reg_subno><![CDATA[EX20001]]></reg_subno><reg_subname><![CDATA[PHYSICS OF SOLID EARTH]]></reg_subname><reg_ltp><![CDATA[3-0-0     ]]></reg_ltp><reg_crd><![CDATA[3]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2014-2015]]></reg_ses1><reg_subno><![CDATA[GG20005]]></reg_subno><reg_subname><![CDATA[INTRODUCTION TO EARTH SCIENCE]]></reg_subname><reg_ltp><![CDATA[3-1-0     ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[F]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2014-2015]]></reg_ses1><reg_subno><![CDATA[GG21103]]></reg_subno><reg_subname><![CDATA[PALEONTOLOGY]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2014-2015]]></reg_ses1><reg_subno><![CDATA[GG21105]]></reg_subno><reg_subname><![CDATA[MINERALOGY]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2014-2015]]></reg_ses1><reg_subno><![CDATA[GG29003]]></reg_subno><reg_subname><![CDATA[PALEONTOLOGY LAB.]]></reg_subname><reg_ltp><![CDATA[0-0-3 ]]></reg_ltp><reg_crd><![CDATA[2]]></reg_crd><reg_grade><![CDATA[D]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2014-2015]]></reg_ses1><reg_subno><![CDATA[GG29005]]></reg_subno><reg_subname><![CDATA[INTRODUCTION TO EARTH SCIENCE LAB.]]></reg_subname><reg_ltp><![CDATA[0-0-3     ]]></reg_ltp><reg_crd><![CDATA[2]]></reg_crd><reg_grade><![CDATA[C]]></reg_grade><reg_sub_type><![CDATA[Depth]]></reg_sub_type><reg_semno1><![CDATA[AUTUMN]]></reg_semno1><reg_ses1><![CDATA[2014-2015]]></reg_ses1><reg_subno><![CDATA[HS20002]]></reg_subno><reg_subname><![CDATA[GENERAL PSYCHOLOGY]]></reg_subname><reg_ltp><![CDATA[3-1-0 ]]></reg_ltp><reg_crd><![CDATA[4]]></reg_crd><reg_grade><![CDATA[C]]></reg_grade><reg_sub_type><![CDATA[HSS]]></reg_sub_type></student></td>
+    <td align="center">MD DILNAWAZ RAGIB</td>
+    <td align="center">APPLIED GEOLOGY (M.Sc. 5Y)                                            </td>
+    <td align="center"><a onclick="callPerform();"><b>View Performance</b></a></td>
+     
+             
+        
+        
+</td></tr>
+
+</table>
+
+
+
+            
+            <table width="100%">  <tr><td width="100%"><br><br><br><br>
+    
+        <table border="1" width="100%"><tr>
+  <td >
+  <fieldset>
+      <legend><b>Registration Status</b></legend>
+      <br><br>
+      <table bgcolor="#FFF3FF" width="100%">
+
+          <tr>
+
+              <th>Session</th>
+              <th>Semester</th>
+              <th>View Detail</th>
+          </tr>
+          
+          <tr>
+              <td align="center">2013-2014</td>
+              <td align="center">AUTUMN</td>
+             <td align="center"><a onclick="callRegdtl('13GG20012','2013-2014','AUTUMN');"><b>View here</b></a></td>
+          </tr>
+          
+          <tr>
+              <td align="center">2013-2014</td>
+              <td align="center">SPRING</td>
+             <td align="center"><a onclick="callRegdtl('13GG20012','2013-2014','SPRING');"><b>View here</b></a></td>
+          </tr>
+          
+          <tr>
+              <td align="center">2014-2015</td>
+              <td align="center">AUTUMN</td>
+             <td align="center"><a onclick="callRegdtl('13GG20012','2014-2015','AUTUMN');"><b>View here</b></a></td>
+          </tr>
+          
+      </table>
+  </fieldset>
+  </td> 
+  
+   </tr></table>
+  </td></tr>
+            </table>
+  <br><br> <div style="background-color:#FFFFFF;border:2px solid black;position:absolute;display:none;" id="reg_show" align="center">
+
+            </div>
+  
+
+
+            </form>
+                <form name="perform-form" target="_blank" id="perform-form" action="" method="POST">
+            <input type="hidden" name="rollno" value="" />
+            <input type="hidden" name="fileFullPath" value="" />
+            <input type="hidden" name="pageno" value="" />
+                 </form>
+    </body>
+</html>

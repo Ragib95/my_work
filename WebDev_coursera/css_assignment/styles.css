@@ -1,0 +1,8 @@
+h1{
+	/*This will align header text to center of webpage.*/
+	text-align: center;
+	/*This will change color of h1 tag.*/
+	color: #ff00dd;
+	/*This will change font of h1 tag to sans-serif*/
+	font-family: sans-serif; 
+}

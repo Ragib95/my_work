@@ -1,0 +1,13 @@
+// write your code here
+var image = new SimpleImage(200,200);
+for (var p of image.values()) {
+    p.setRed(255);
+    x = p.getX();
+    y = p.getY();
+    if ( x + y < image.getWidth() && x < y && x < 20 ){
+        p.setRed(0);
+        p.setGreen(0);
+        p.setBlue(0);
+    }
+}
+print(image);
